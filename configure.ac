@@ -27,7 +27,7 @@ AC_PATH_PROG([NIH_DBUS_TOOL], [nih-dbus-tool])
 
 AC_CHECK_FUNCS([setns pivot_root])
 
-PKG_CHECK_MODULES([NIH], [libnih >= 1.0.3])
+PKG_CHECK_MODULES([NIH], [libnih >= 1.0.1])
 PKG_CHECK_MODULES([NIH_DBUS], [libnih-dbus >= 1.0.0])
 PKG_CHECK_MODULES([DBUS], [dbus-1 >= 1.2.16])
 
@@ -124,6 +124,9 @@ AC_MSG_RESULT($init_script)
 
 AC_PATH_PROG(HELP2MAN, help2man, false // No help2man //)
 AM_CONDITIONAL([HAVE_HELP2MAN], [test "x$HELP2MAN" != "xfalse // No help2man //" ])
+
+with_scm=false
+AM_CONDITIONAL([WITH_SCM], [test "x$with_scm" == "xtrue" ])
 
 AS_AC_EXPAND(SBINDIR, "$sbindir")
 

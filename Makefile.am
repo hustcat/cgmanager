@@ -23,7 +23,12 @@ CLEANFILES = \
 	*.o *.so \
 	libcgmanager.pc.in
 
+if WITH_SCM
 sbin_PROGRAMS = cgmanager cgproxy cgm-release-agent
+else
+sbin_PROGRAMS = cgmanager cgm-release-agent
+endif
+
 bin_PROGRAMS = cgm
 
 lib_LTLIBRARIES = libcgmanager.la
@@ -31,7 +36,11 @@ lib_LTLIBRARIES = libcgmanager.la
 pkginclude_HEADERS = cgmanager-client.h cgmanager.h
 
 if HAVE_HELP2MAN
+if WITH_SCM
 man_MANS = cgm.1 cgproxy.8 cgmanager.8
+else
+man_MANS = cgm.1 cgmanager.8
+endif
 endif
 
 libcgmanager.pc: libcgmanager.pc.in
@@ -68,11 +77,13 @@ cgmanager_SOURCES = cgmanager.c \
 
 cgmanager_CFLAGS = $(AM_CFLAGS) -DCGMANAGER
 
+if WITH_SCM
 cgproxy_SOURCES = cgmanager-proxy.c \
 	$(manager_files_OUTPUTS) \
 	access_checks.c access_checks.h \
 	fs.c fs.h cgmanager.h \
 	frontend.c frontend.h
+endif
 
 cgm_release_agent_SOURCES = cgm-release-agent.c
 cgm_release_agent_LDADD = -L.libs -lcgmanager
@@ -95,8 +106,10 @@ if HAVE_HELP2MAN
 cgmanager.8: cgmanager.c cgmanager cgmanager.man.add
 	$(HELP2MAN) -n "a daemon to manage cgroups" -s 8 -I cgmanager.man.add -N ./cgmanager > cgmanager.8
 
+if WITH_SCM
 cgproxy.8: cgmanager-proxy.c cgproxy cgproxy.man.add
 	$(HELP2MAN) -n "a proxy for cgmanager" -s 8 -I cgproxy.man.add -N ./cgproxy > cgproxy.8
+endif
 
 cgm.1: cgm cgm.man.add
 	$(HELP2MAN) -n "a client script for cgmanager" -s 1 -I cgm.man.add -N ./cgm > cgm.1
