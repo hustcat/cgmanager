@@ -75,7 +75,9 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_sbindir}/*
 %{_mandir}/man8/*
+%{_mandir}/man1/*
 %{_datadir}/%{name}/*
+/etc/*
 
 %files libs
 %defattr(-,root,root)

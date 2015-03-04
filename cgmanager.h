@@ -1,4 +1,5 @@
-#define CGDIR "/sys/fs/cgroup"
+//#define CGDIR "/sys/fs/cgroup"
+#define CGDIR "/cgroup"
 #define CGMANAGER_DIR CGDIR "/cgmanager"
 #define CGMANAGER_SOCK CGMANAGER_DIR "/sock"
 #define CGPROXY_DIR CGDIR "/cgmanager.lower"

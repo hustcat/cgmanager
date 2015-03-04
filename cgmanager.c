@@ -62,7 +62,7 @@ int get_pid_cgroup_main(void *parent, const char *controller,struct ucred p,
 		*output = NIH_MUST (nih_strdup(parent, "/") );
 	else
 		*output = NIH_MUST (nih_strdup(parent, vcgpath + rlen + 1) );
-
+	nih_debug("%s: v (%d)'s cgroup is %s", __func__, v.pid, *output);
 	return 0;
 }
 
@@ -604,7 +604,7 @@ int get_value_main(void *parent, const char *controller, const char *cgroup,
 		return -1;
 	}
 
-	nih_info(_("Sending to client: %s"), *value);
+	nih_info(_("Sending %s to client: %s"), path, *value);
 	return 0;
 }
 

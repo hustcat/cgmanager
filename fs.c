@@ -1749,14 +1749,19 @@ bool move_self_to_root(void)
 		if (all_mounts[i].skip)
 			continue;
 		path = NIH_MUST( nih_sprintf(NULL, "%s/tasks", all_mounts[i].path) );
-		if ((f = fopen(path, "w")) == NULL)
+		if ((f = fopen(path, "w")) == NULL){
+			nih_fatal("Open file %s failed", path);
 			return false;
+		}
 		if (fprintf(f, "%d\n", me) <= 0) {
+			nih_fatal("Write file %s failed", path);
 			fclose(f);
 			return false;
 		}
-		if (fclose(f) != 0)
+		if (fclose(f) != 0){
+			nih_fatal("Close file %s failed, error(%d): %s ", path, errno, strerror(errno));         
 			return false;
+		}
 	}
 	return true;
 }
