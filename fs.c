@@ -388,8 +388,12 @@ static bool do_mount_subsys(int i)
 		set_clone_children(dest); // TODO make this optional?
 		nih_info(_("set clone_children"));
 	} else if (strcmp(controller, "memory") == 0) {
-		set_use_hierarchy(dest);  // TODO make this optional?
-		nih_info(_("set memory.use_hierarchy"));
+		if(use_hierarchy) {
+			set_use_hierarchy(dest);  // TODO make this optional?
+			nih_info(_("set memory.use_hierarchy"));
+		} else {
+			nih_info(_("not set memory.use_hierarchy"));
+		}
 	}
 
 	if (!set_release_agent(m)) {

@@ -74,6 +74,7 @@ extern bool setns_pid_supported;
 extern unsigned long mypidns;
 extern bool setns_user_supported;
 extern unsigned long myuserns;
+extern int use_hierarchy;
 #endif
 
 struct scm_sock_data {
